@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjeta de Cumpleaños</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #87CEEB;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .birthday-card {
+            width: 80%;
+            max-width: 300px;
+            height: auto;
+            aspect-ratio: 5/7;
+            perspective: 1000px;
+        }
+
+        .card {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            transform-style: preserve-3d;
+            transition: transform 0.7s ease-in-out;
+        }
+
+        .birthday-card:hover .card {
+            transform: rotateY(-160deg);
+        }
+
+        .card-front, .card-inside {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-front {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .card-front h3 {
+            margin: 10px 0;
+            font-size: 24px;
+            color: #FF6347;
+        }
+
+        .cake {
+            width: 80px;
+            height: 50px;
+            background: #f15bb5;
+            position: relative;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .cake::before {
+            content: "";
+            position: absolute;
+            width: 10px;
+            height: 20px;
+            background: #432818;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .flame {
+            width: 10px;
+            height: 15px;
+            background: orange;
+            border-radius: 50%;
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: flicker 1s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0.6; transform: scale(1.1); }
+        }
+
+        .card-inside {
+            transform: rotateY(180deg);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .card-inside p {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .card-inside p.special-message {
+            font-family: 'Lobster', cursive;
+            font-size: 20px;
+            color: #FF1493;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Animaciones de globos */
+        .balloon {
+            position: absolute;
+            bottom: -100px;
+            animation: floatBalloons 5s ease-in infinite;
+        }
+
+        .balloon:nth-child(1) {
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .balloon:nth-child(2) {
+            left: 40%;
+            animation-delay: 1s;
+        }
+
+        .balloon:nth-child(3) {
+            left: 70%;
+            animation-delay: 2s;
+        }
+
+        .balloon:nth-child(4) {
+            left: 30%;
+            animation-delay: 3s;
+        }
+
+        @keyframes floatBalloons {
+            0% {
+                bottom: -100px;
+                opacity: 0.5;
+            }
+            50% {
+                bottom: 150px;
+                opacity: 1;
+            }
+            100% {
+                bottom: 300px;
+                opacity: 0;
+            }
+        }
+
+        /* Confeti */
+        .confetti {
+            position: absolute;
+            top: -50px;
+            animation: confettiFall 3s linear infinite;
+        }
+
+        .confetti div {
+            width: 10px;
+            height: 10px;
+            background-color: #FF1493;
+            position: absolute;
+            opacity: 0.9;
+            transform: rotate(45deg);
+            animation: confettiMove 2s infinite;
+        }
+
+        .confetti div:nth-child(odd) {
+            background-color: #FFD700;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                top: -50px;
+            }
+            100% {
+                top: 100%;
+            }
+        }
+
+        @keyframes confettiMove {
+            0% {
+                transform: rotate(45deg) translateX(0) translateY(0);
+            }
+            50% {
+                transform: rotate(45deg) translateX(30px) translateY(30px);
+            }
+            100% {
+                transform: rotate(45deg) translateX(-30px) translateY(30px);
+            }
+        }
+
+        /* Responsividad mejorada */
+        @media (max-width: 600px) {
+            .card-front h3 {
+                font-size: 20px;
+            }
+
+            .cake {
+                width: 60px;
+                height: 40px;
+            }
+
+            .card-inside p {
+                font-size: 16px;
+            }
+
+            .card-inside p.special-message {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="birthday-card">
+        <div class="card">
+            <div class="card-front">
+                <h3>🎉 Feliz Cumpleaños 🎉</h3>
+                <div class="cake">
+                    <div class="flame"></div>
+                </div>
+            </div>
+            <div class="card-inside">
+                <p>Para mi mejor amigo,</p>
+                <p class="special-message">¡Feliz cumpleaños, bu! Espero que disfrutes este día tan especial para ti y de todo corazón deseo que todas tus metas se te cumplan.</p>
+                <p>🎂🎁🎈</p>
+                
+                <!-- Globos -->
+                <div class="balloon"><div style="width: 40px; height: 60px; border-radius: 50%; background-color: #FF6347;"></div></div>
+                <div class="balloon"><div style="width: 40px; height: 60px; border-radius: 50%; background-color: #FFD700;"></div></div>
+                <div class="balloon"><div style="width: 40px; height: 60px; border-radius: 50%; background-color: #32CD32;"></div></div>
+                <div class="balloon"><div style="width: 40px; height: 60px; border-radius: 50%; background-color: #1E90FF;"></div></div>
+                
+                <!-- Confeti -->
+                <div class="confetti">
+                    <div style="left: 5%;"></div>
+                    <div style="left: 15%;"></div>
+                    <div style="left: 25%;"></div>
+                    <div style="left: 35%;"></div>
+                    <div style="left: 45%;"></div>
+                    <div style="left: 55%;"></div>
+                    <div style="left: 65%;"></div>
+                    <div style="left: 75%;"></div>
+                    <div style="left: 85%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
